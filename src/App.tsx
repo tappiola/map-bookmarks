@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { SavedLocation } from "./types";
+import ClickableMap from "./ClickableMap";
+import { useLocalStorage } from "primereact/hooks";
+import Location from "./Location";
 
 function App() {
+  const [savedLocations, setSavedLocations] = useLocalStorage<SavedLocation[]>(
+    [],
+    "savedLocations",
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="h-screen flex flex-grow-1 overflow-y-auto">
+      <section className="w-full md:w-30rem overflow-y-auto p-4">
+        <h1>Saved locations</h1>
+        {!!savedLocations.length || (
+          <p className="text-gray-500">Select a location on the map to save</p>
+        )}
+        {savedLocations.map((location) => (
+          <Location
+            key={location.id}
+            location={location}
+            setSavedLocations={setSavedLocations}
+          />
+        ))}
+      </section>
+      <ClickableMap
+        savedLocations={savedLocations}
+        setSavedLocations={setSavedLocations}
+      />
+    </main>
   );
 }
 

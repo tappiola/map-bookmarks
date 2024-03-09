@@ -1,0 +1,25 @@
+.mapboxgl-ctrl-attrib-inner,
+.mapboxgl-ctrl .mapboxgl-ctrl-logo {
+    display: none;
+}
+
+#map {
+    width: 100%;
+    position: relative;
+    flex-grow: 1;
+    height: 100vh;
+}
+
+#map:before {
+    box-shadow: 20px 0 10px -10px rgba(0, 0, 0, 0.15) inset;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 20px;
+    z-index: 60;
+}
+
+.mapboxgl-popup-close-button {
+    font-size: 20px;
+}
